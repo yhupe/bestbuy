@@ -71,14 +71,16 @@ def start(store):
                         continue
 
                     selected_product = best_buy.products[product_number - 1]
-                    selected_product.buy(order_quantity)
-                    shopping_list.append((selected_product, order_quantity))
-                    print(f"\n{selected_product.name} (qty: {order_quantity}) added to your basket!\n")
+                    #selected_product.buy(order_quantity)
+                    #shopping_list.append((selected_product, order_quantity))
+                    #print(f"\n{selected_product.name} (qty: {order_quantity}) added to your basket!\n")
 
                     if order_quantity > selected_product.get_quantity():
                         print(f"\nNot enough items on stock - only {selected_product.get_quantity()} items left!\n")
                         continue
 
+                    selected_product.buy(order_quantity)
+                    shopping_list.append((selected_product, order_quantity))
                     print(f"\n{selected_product.name} (qty: {order_quantity}) added to your basket!\n")
 
                 except ValueError:
@@ -93,6 +95,8 @@ def start(store):
 
         if user_input =="4":
             break
+
+
 
 start(best_buy)
 
