@@ -18,7 +18,6 @@ class Product:
         return self.quantity
 
     def set_quantity(self, quantity):
-
         self.quantity -= quantity
 
         if self.quantity == 0:
@@ -34,7 +33,7 @@ class Product:
         self.active = False
 
     def show(self):
-        print(f"{self.name}, Price: {self.price} €, Quantity: {self.quantity} pcs")
+        return f"{self.name}, Price: {self.price} €, Quantity: {self.quantity} pcs"
 
     def buy(self, quantity) -> float:
         if quantity > self.quantity:
@@ -42,6 +41,6 @@ class Product:
 
         total_price = quantity * self.price
         self.set_quantity(quantity)
-
         return total_price
+
 
