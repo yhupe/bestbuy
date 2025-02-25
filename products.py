@@ -1,4 +1,6 @@
 class Product:
+    """Initialization of instance variables is allowed
+    only after meeting criteria, otherwise an error is raised"""
 
     def __init__(self, name, price, quantity):
 
@@ -33,7 +35,8 @@ class Product:
         self.active = False
 
     def show(self):
-        return f"{self.name}, Price: {self.price} €, Quantity: {self.quantity} pcs"
+        return (f"{self.name}, Price: {self.price} €, "
+                f"Quantity: {self.quantity} pcs")
 
     def buy(self, quantity) -> float:
         if quantity > self.quantity:
@@ -42,5 +45,3 @@ class Product:
         total_price = quantity * self.price
         self.set_quantity(quantity)
         return total_price
-
-

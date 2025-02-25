@@ -9,6 +9,9 @@ best_buy = Store(product_list)
 
 
 def start(store):
+    """ Within a while loop, interface to present Menu 1-4 and available
+    products to the user. Some error handling which is not being
+    handled inside the two classes is handled in the start function"""
 
     while True:
         print("     Menu     ")
@@ -37,65 +40,62 @@ def start(store):
             print(f"Total amount of {quantity} items in store\n")
 
         if user_input == "3":
-
             shopping_list = []
+            temporary_stock = {product: product.get_quantity() for product
+                               in best_buy.products}
 
             while True:
 
                 for index, product in enumerate(best_buy.products):
-                    print(f"{index + 1}: {product.show()}")
+                    print(f"{index + 1}: {product.name}, "
+                          f"Price: {product.price} €, "
+                          f"Quantity: {temporary_stock[product]} pcs")
 
-                print()
-                print("Press enter to quit order process ...\n")
-                product_number = input("Which product # do you want?: ").strip()
+                print("\nPress enter to quit order process ...\n")
+                product_number = (input("Which product # do you want?: ")
+                                  .strip())
 
                 if product_number == "":
                     break
 
                 try:
-
                     product_number = int(product_number)
 
-                    if product_number > len(best_buy.products):
-                        print(f"\nThere is no product matching the product number {product_number}\n")
+                    if (product_number <= 0 or product_number >
+                            len(best_buy.products)):
+                        print("\nInvalid product number!\n")
                         continue
 
-                    if product_number <= 0:
-                        print(f"\nProduct number must be in the active list above.\n")
-                        continue
-
-                    order_quantity = int(input("\nWhat amount do you want?: ").strip())
+                    order_quantity = (
+                        int(input("\nWhat amount do you want?: ").strip()))
 
                     if order_quantity <= 0:
-                        print("\nquantity must be positive\n")
+                        print("\nQuantity must be positive!\n")
                         continue
 
                     selected_product = best_buy.products[product_number - 1]
-                    #selected_product.buy(order_quantity)
-                    #shopping_list.append((selected_product, order_quantity))
-                    #print(f"\n{selected_product.name} (qty: {order_quantity}) added to your basket!\n")
 
-                    if order_quantity > selected_product.get_quantity():
-                        print(f"\nNot enough items on stock - only {selected_product.get_quantity()} items left!\n")
+                    if order_quantity > temporary_stock[selected_product]:
+                        print(f"\nNot enough items in stock - only "
+                              f"{temporary_stock[selected_product]} left!\n")
                         continue
 
-                    selected_product.buy(order_quantity)
+                    temporary_stock[selected_product] -= order_quantity
                     shopping_list.append((selected_product, order_quantity))
-                    print(f"\n{selected_product.name} (qty: {order_quantity}) added to your basket!\n")
+                    print(f"\n{selected_product.name} (qty: {order_quantity})"
+                          f" added to your basket!\n")
 
                 except ValueError:
-                    print("\nYou must enter valid numbers here or press enter to quit :)\n")
+                    print("\nYou must enter valid numbers!\n")
 
             if shopping_list:
                 total_price = best_buy.order(shopping_list)
                 print(f"\nOrder complete! Total price: {total_price} €\n")
-
             else:
                 print("Your shopping basket is empty. Shopping process stopped")
 
         if user_input =="4":
             break
-
 
 
 start(best_buy)

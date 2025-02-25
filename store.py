@@ -1,7 +1,9 @@
 import products
 
 class Store:
-    """ It seems to be best practice to set iterable objects to none """
+    """ It seems to be best practice to set iterable objects to none by default
+     because otherwise it's likely that instances share the same list.
+     If no product is provided, an empty list is assigned"""
 
     def __init__(self, products= None):
         if products is None:
