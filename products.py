@@ -4,17 +4,27 @@ class Product:
 
     def __init__(self, name, price, quantity):
 
+        if not isinstance(name, str):
+            raise TypeError(f"Product name must be a string ('blabla'), got {type(name)} instead.")
+
         if not name:
             raise ValueError("Name cannot be empty")
+
+        if not isinstance(price, (int, float)):
+            raise TypeError(f"Price must be a number (int or float), got {type(price)} instead.")
+
         if price <= 0:
             raise ValueError("Price cannot be negative or 0")
+
+        if not isinstance(quantity, int):
+            raise TypeError(f"Quantity must be a whole number (int), got {type(quantity)} instead.")
+
         if quantity < 0:
             raise ValueError("Quantity cannot be negative")
 
         self.name = name
         self.price = price
         self.quantity = quantity
-        self.active = True
 
     def get_quantity(self) -> int:
         return self.quantity

@@ -7,6 +7,13 @@ product_list = [ Product("MacBook Air M2", price=1450, quantity=100),
                ]
 best_buy = Store(product_list)
 
+iphone = Product("Iphone 15 Pro 256 GB", price=1099, quantity=1000)
+cannabis = Product("1st grade PREMIUM Cannabis", price=20, quantity=50)
+
+best_buy.add_product(iphone)
+best_buy.add_product(cannabis)
+best_buy.remove_product(cannabis)
+
 
 def start(store):
     """ Within a while loop, interface to present Menu 1-4 and available
